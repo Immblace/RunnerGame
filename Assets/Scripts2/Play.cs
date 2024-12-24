@@ -45,7 +45,7 @@ public class Play : MonoBehaviour
         }
         else
         {
-            speed += 0.3f;
+            speed += 0.6f;
             timeToUpSpeed = UnityEngine.Random.Range(5, 9);
         }
 

@@ -48,7 +48,7 @@ public class SpawnGenerate : MonoBehaviour
 
             Debug.Log("right " + countRight);
 
-            if (countRight > 2)
+            if (countRight > 1)
             {
                 Debug.Log("destroyRight");
                 Generate = false;
@@ -67,7 +67,7 @@ public class SpawnGenerate : MonoBehaviour
 
             Debug.Log("left " + countLeft);
 
-            if (countLeft > 2)
+            if (countLeft > 1)
             {
                 Debug.Log("destroyLeft");
                 Generate = false;
