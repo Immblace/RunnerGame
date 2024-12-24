@@ -20,15 +20,20 @@ public class SpawnGenerate : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 56; i++)
         {
-            TrackGenerate();
+            //TrackGenerate();
         }
     }
 
     private void Update()
     {
         if (Turns.Count < 15 && Generate)
+        {
+            //TrackGenerate();
+        }
+
+        if(Input.GetKey(KeyCode.Space))
         {
             TrackGenerate();
         }
@@ -41,12 +46,13 @@ public class SpawnGenerate : MonoBehaviour
         newRotate.rotation = Roads.Last().rotation;
         Turns.Add(newRotate);
 
+        Debug.Log($"Spawned {Turns.Last().gameObject.tag}");
         if (Turns.Last().gameObject.tag == "Right")
         {
             countLeft = 0;
             countRight++;
 
-            Debug.Log("right " + countRight);
+           // Debug.Log("right spawned " + countRight);
 
             if (countRight > 1)
             {
@@ -54,6 +60,9 @@ public class SpawnGenerate : MonoBehaviour
                 Generate = false;
                 Destroy(Turns.Last().gameObject);
                 Turns.Remove(Turns.Last().transform);
+
+                countLeft++;
+                Debug.Log("generateLeft");
                 generateLeft();
                 Generate = true;
                 countRight = 0;
@@ -65,7 +74,7 @@ public class SpawnGenerate : MonoBehaviour
             countRight = 0;
             countLeft++;
 
-            Debug.Log("left " + countLeft);
+           // Debug.Log("left spawned " + countLeft);
 
             if (countLeft > 1)
             {
@@ -73,6 +82,9 @@ public class SpawnGenerate : MonoBehaviour
                 Generate = false;
                 Destroy(Turns.Last().gameObject);
                 Turns.Remove(Turns.Last().transform);
+
+                countRight++;
+                Debug.Log("generateRight");
                 generateRight();
                 Generate = true;
                 countLeft = 0;
