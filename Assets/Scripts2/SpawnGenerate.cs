@@ -20,20 +20,15 @@ public class SpawnGenerate : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < 56; i++)
+        for (int i = 0; i < 9; i++)
         {
-            //TrackGenerate();
+            TrackGenerate();
         }
     }
 
     private void Update()
     {
-        if (Turns.Count < 15 && Generate)
-        {
-            //TrackGenerate();
-        }
-
-        if(Input.GetKey(KeyCode.Space))
+        if (Turns.Count < 9 && Generate)
         {
             TrackGenerate();
         }
@@ -46,23 +41,17 @@ public class SpawnGenerate : MonoBehaviour
         newRotate.rotation = Roads.Last().rotation;
         Turns.Add(newRotate);
 
-        Debug.Log($"Spawned {Turns.Last().gameObject.tag}");
+        
         if (Turns.Last().gameObject.tag == "Right")
         {
             countLeft = 0;
             countRight++;
 
-           // Debug.Log("right spawned " + countRight);
-
-            if (countRight > 1)
+            if (countRight > 2)
             {
-                Debug.Log("destroyRight");
                 Generate = false;
                 Destroy(Turns.Last().gameObject);
                 Turns.Remove(Turns.Last().transform);
-
-                countLeft++;
-                Debug.Log("generateLeft");
                 generateLeft();
                 Generate = true;
                 countRight = 0;
@@ -74,17 +63,11 @@ public class SpawnGenerate : MonoBehaviour
             countRight = 0;
             countLeft++;
 
-           // Debug.Log("left spawned " + countLeft);
-
-            if (countLeft > 1)
+            if (countLeft > 2)
             {
-                Debug.Log("destroyLeft");
                 Generate = false;
                 Destroy(Turns.Last().gameObject);
                 Turns.Remove(Turns.Last().transform);
-
-                countRight++;
-                Debug.Log("generateRight");
                 generateRight();
                 Generate = true;
                 countLeft = 0;
@@ -112,6 +95,7 @@ public class SpawnGenerate : MonoBehaviour
 
     private void generateRight()
     {
+        countRight++;
         Transform newRotate = Instantiate(Rotate[1]);
         newRotate.position = Roads.Last().TransformPoint(Vector3.forward / distance);
         newRotate.rotation = Roads.Last().rotation;
@@ -126,6 +110,7 @@ public class SpawnGenerate : MonoBehaviour
 
     private void generateLeft()
     {
+        countLeft++;
         Transform newRotate = Instantiate(Rotate[0]);
         newRotate.position = Roads.Last().TransformPoint(Vector3.forward / distance);
         newRotate.rotation = Roads.Last().rotation;
@@ -138,17 +123,12 @@ public class SpawnGenerate : MonoBehaviour
         Roads.Add(newTrack);
     }
 
-    public void ResetAll()
-    {
-        Roads.Clear();
-        Turns.Clear();
 
-    }
 
     public void DeletObj()
     {
-        Destroy(Roads.First().transform.gameObject, 1f);
-        Destroy(Turns.First().transform.gameObject, 1f);
+        Destroy(Roads.First().transform.gameObject, 0.5f);
+        Destroy(Turns.First().transform.gameObject, 0.5f);
         Roads.Remove(Roads.First().transform);
         Turns.Remove(Turns.First().transform);
     }

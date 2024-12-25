@@ -12,6 +12,7 @@ public class Play : MonoBehaviour
     [SerializeField] private Transform cameraPos;
     [SerializeField] private TextMeshProUGUI myScore;
     [SerializeField] private TextMeshProUGUI myRecord;
+    private SpawnGenerate spawnGenerate;
     private bool moveRight;
     private bool moveLeft;
     private int count = 0;
@@ -21,17 +22,15 @@ public class Play : MonoBehaviour
     private Rigidbody _rb;
 
 
-    private SpawnGenerate spawnGenerate;
-
     private float score = 0;
     private float timeToUpSpeed = 3f;
 
     private void Start()
     {
+        spawnGenerate = FindObjectOfType<SpawnGenerate>();
         anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
         myRecord.text = "Record: " + Math.Round(PlayerPrefs.GetFloat("MyRecord"));
-        spawnGenerate = FindFirstObjectByType<SpawnGenerate>();
     }
 
     void Update()
@@ -101,7 +100,7 @@ public class Play : MonoBehaviour
 
     void LateUpdate()
     {
-        cameraPos.position = Vector3.Lerp(cameraPos.position, transform.TransformPoint(0, 3.5f, -5.5f), 5f * Time.deltaTime);
+        cameraPos.position = Vector3.Lerp(cameraPos.position, transform.TransformPoint(0, 4f, -5.1f), 5f * Time.deltaTime);
         cameraPos.LookAt(transform);
     }
 
@@ -140,16 +139,20 @@ public class Play : MonoBehaviour
             {
                 PlayerPrefs.SetFloat("MyRecord", score);
             }
-            spawnGenerate.ResetAll();
+
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        moveLeft = false;
-        moveRight = false;
-        count = 0;
+        if (other.tag == "Right" || other.tag == "Left")
+        {
+            spawnGenerate.DeletObj();
+            moveLeft = false;
+            moveRight = false;
+            count = 0;
+        }
     }
 
 
