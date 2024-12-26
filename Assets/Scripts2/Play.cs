@@ -12,6 +12,7 @@ public class Play : MonoBehaviour
     [SerializeField] private Transform cameraPos;
     [SerializeField] private TextMeshProUGUI myScore;
     [SerializeField] private TextMeshProUGUI myRecord;
+    [SerializeField] private Transform CameraLookPos;
     private SpawnGenerate spawnGenerate;
     private bool moveRight;
     private bool moveLeft;
@@ -100,8 +101,8 @@ public class Play : MonoBehaviour
 
     void LateUpdate()
     {
-        cameraPos.position = Vector3.Lerp(cameraPos.position, transform.TransformPoint(0, 4f, -5.1f), 5f * Time.deltaTime);
-        cameraPos.LookAt(transform);
+        cameraPos.position = Vector3.Lerp(cameraPos.position, transform.TransformPoint(0, 3.5f, -3.3f), 5f * Time.deltaTime);
+        cameraPos.LookAt(CameraLookPos);
     }
 
 
@@ -118,6 +119,14 @@ public class Play : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             isGrounded = false;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Block")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 

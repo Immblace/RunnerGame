@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform enemyPosition;
     [SerializeField] private Transform[] enemyTarget = new Transform[3];
+    [SerializeField] private Transform[] BlockPos = new Transform[2];
+    [SerializeField] private Transform jumpBlock;
     [SerializeField] private Transform bulletPrefab;
 
     private GameObject enemy;
@@ -24,6 +26,10 @@ public class Enemy : MonoBehaviour
             enemy.transform.LookAt(lookPos);
         }
 
+        if (Random.Range(0,100) > 80)
+        {
+            Instantiate(jumpBlock, BlockPos[Random.Range(0, BlockPos.Length)].position, transform.rotation);
+        }
     }
 
 
