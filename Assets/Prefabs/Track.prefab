@@ -179,8 +179,8 @@ GameObject:
   - component: {fileID: 855348755760048458}
   - component: {fileID: 6451893582673343184}
   - component: {fileID: 6775601892249733302}
-  - component: {fileID: 6448546308309588626}
   - component: {fileID: 4000395389395766906}
+  - component: {fileID: 7755989176077670063}
   m_Layer: 0
   m_Name: Track
   m_TagString: Ground
@@ -282,7 +282,28 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6448546308309588626
+--- !u!65 &4000395389395766906
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3180973159773744774}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.67862165, y: 33.86543, z: 0.03861463}
+  m_Center: {x: 0, y: 18.365114, z: -0.18}
+--- !u!114 &7755989176077670063
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -305,27 +326,6 @@ MonoBehaviour:
   - {fileID: 4408273392306259520}
   jumpBlock: {fileID: 1500155890077289756, guid: 5081e10286de3c94e90a828eee95fb8c, type: 3}
   bulletPrefab: {fileID: 3707161700305970039, guid: 785d4079d71627647abfec891b10faf9, type: 3}
---- !u!65 &4000395389395766906
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3180973159773744774}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.67862165, y: 33.86543, z: 0.03861463}
-  m_Center: {x: 0, y: 18.365114, z: -0.18}
 --- !u!1 &3516854587267099918
 GameObject:
   m_ObjectHideFlags: 0

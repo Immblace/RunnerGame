@@ -4,16 +4,15 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Play : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private Transform cameraPos;
-    [SerializeField] private TextMeshProUGUI myScore;
-    [SerializeField] private TextMeshProUGUI myRecord;
     [SerializeField] private Transform CameraLookPos;
+    private LevelManager levelManager;
     private SpawnGenerate spawnGenerate;
+    private ScoreManager scoreManager;
     private bool moveRight;
     private bool moveLeft;
     private int count = 0;
@@ -23,21 +22,20 @@ public class Play : MonoBehaviour
     private Rigidbody _rb;
 
 
-    private float score = 0;
+    
     private float timeToUpSpeed = 3f;
 
     private void Start()
     {
         spawnGenerate = FindObjectOfType<SpawnGenerate>();
+        levelManager = FindObjectOfType<LevelManager>();
+        scoreManager = FindObjectOfType<ScoreManager>();
         anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
-        myRecord.text = "Record: " + Math.Round(PlayerPrefs.GetFloat("MyRecord"));
     }
 
     void Update()
     {
-        score += Time.deltaTime;
-        myScore.text = "Score: " + Math.Round(score);
 
         if (timeToUpSpeed > 0)
         {
@@ -89,11 +87,8 @@ public class Play : MonoBehaviour
 
         if (transform.position.y < -20f)
         {
-            if (score > PlayerPrefs.GetFloat("MyRecord"))
-            {
-                PlayerPrefs.SetFloat("MyRecord", score);
-            }
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            scoreManager.CheckRecord();
+            levelManager.onLoseMenu();
             transform.position = new Vector3(0f, 0.4f, -25f);
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
@@ -126,7 +121,7 @@ public class Play : MonoBehaviour
     {
         if (collision.gameObject.tag == "Block")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            levelManager.RestartScene();
         }
     }
 
@@ -144,12 +139,8 @@ public class Play : MonoBehaviour
 
         if (other.tag == "Bullet")
         {
-            if (score > PlayerPrefs.GetFloat("MyRecord"))
-            {
-                PlayerPrefs.SetFloat("MyRecord", score);
-            }
-
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            scoreManager.CheckRecord();
+            levelManager.RestartScene();
         }
     }
 
