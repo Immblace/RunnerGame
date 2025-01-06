@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 0afef767edc367c46aa6a2f93c476ce1, type: 2}
   m_LightingSettings: {fileID: 1035352442}
 --- !u!196 &4
 NavMeshSettings:
@@ -2513,7 +2513,7 @@ Animator:
   m_GameObject: {fileID: 1827578807}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c02f45a3a4736304897bb5306bfd4833, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6dbed46522cb0d44dafeb7d8d8fd71b4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
