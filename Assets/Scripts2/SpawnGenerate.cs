@@ -133,4 +133,10 @@ public class SpawnGenerate : MonoBehaviour
         Turns.Remove(Turns.First().transform);
     }
 
+
+    public int CheckTrackCount()
+    {
+        return Roads.Count();
+    }
+
 }

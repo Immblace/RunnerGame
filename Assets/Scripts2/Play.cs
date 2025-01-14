@@ -121,7 +121,8 @@ public class Play : MonoBehaviour
     {
         if (collision.gameObject.tag == "Block")
         {
-            levelManager.RestartScene();
+            scoreManager.CheckRecord();
+            levelManager.onLoseMenu();
         }
     }
 

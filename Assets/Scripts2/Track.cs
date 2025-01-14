@@ -10,6 +10,7 @@ public class Track : MonoBehaviour
     [SerializeField] private Transform[] BlockPos = new Transform[2];
     [SerializeField] private Transform jumpBlock;
     [SerializeField] private Transform bulletPrefab;
+    private SpawnGenerate spawnGenerate;
 
     private GameObject enemy;
     private Transform lookPos;
@@ -19,16 +20,25 @@ public class Track : MonoBehaviour
 
     private void Start()
     {
-        if (Random.Range(0,100) > 70)
+        spawnGenerate = FindObjectOfType<SpawnGenerate>();
+
+
+        if (spawnGenerate.CheckTrackCount() > 2)
         {
-            enemy = Instantiate(enemyPrefab, enemyPosition.position, Quaternion.identity);
-            lookPos = enemyTarget[Random.Range(0, enemyTarget.Length)];
-            enemy.transform.LookAt(lookPos);
+            if (Random.Range(0, 100) > 70)
+            {
+                enemy = Instantiate(enemyPrefab, enemyPosition.position, Quaternion.identity);
+                lookPos = enemyTarget[Random.Range(0, enemyTarget.Length)];
+                enemy.transform.LookAt(lookPos);
+            }
         }
 
-        if (Random.Range(0,100) > 80)
+        if (spawnGenerate.CheckTrackCount() > 4)
         {
-            Instantiate(jumpBlock, BlockPos[Random.Range(0, BlockPos.Length)].position, transform.rotation);
+            if (Random.Range(0, 100) > 80)
+            {
+                Instantiate(jumpBlock, BlockPos[Random.Range(0, BlockPos.Length)].position, transform.rotation);
+            }
         }
     }
 
