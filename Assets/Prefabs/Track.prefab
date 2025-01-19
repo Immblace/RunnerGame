@@ -315,7 +315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 544c344517a2fb145846207251298809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 7753011022995139486, guid: f44ead904365a8e4297612e15f0d668e, type: 3}
+  enemyPrefab: {fileID: -6936589585442929998, guid: f44ead904365a8e4297612e15f0d668e, type: 3}
   enemyPosition: {fileID: 4548837760683220902}
   enemyTarget:
   - {fileID: 2533412262598691537}
@@ -325,7 +325,6 @@ MonoBehaviour:
   - {fileID: 274489855658266887}
   - {fileID: 4408273392306259520}
   jumpBlock: {fileID: 1500155890077289756, guid: 5081e10286de3c94e90a828eee95fb8c, type: 3}
-  bulletPrefab: {fileID: 3707161700305970039, guid: 785d4079d71627647abfec891b10faf9, type: 3}
 --- !u!1 &3516854587267099918
 GameObject:
   m_ObjectHideFlags: 0

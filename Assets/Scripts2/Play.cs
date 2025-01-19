@@ -24,6 +24,7 @@ public class Play : MonoBehaviour
 
     
     private float timeToUpSpeed = 3f;
+    
 
     private void Start()
     {
@@ -63,8 +64,7 @@ public class Play : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            _rb.AddForce(Vector3.up * 0.02f , ForceMode.Impulse);
-            anim.SetInteger("State", 1);
+            Jump();
         }
 
         if (moveRight && count == 0)
@@ -141,7 +141,7 @@ public class Play : MonoBehaviour
         if (other.tag == "Bullet")
         {
             scoreManager.CheckRecord();
-            levelManager.RestartScene();
+            levelManager.onLoseMenu();
         }
     }
 
@@ -175,6 +175,12 @@ public class Play : MonoBehaviour
         }
     }
 
+    private void Jump()
+    {
+        _rb.AddForce(Vector3.up * 0.02f, ForceMode.Impulse);
+        anim.SetInteger("State", 1);
+    }
+
     private void SwipeMove()
     {
         if (Input.touchCount == 1)
@@ -187,20 +193,34 @@ public class Play : MonoBehaviour
                     startPos = touch.position;
                     break;
                 case TouchPhase.Ended:
-                    float delta = touch.position.x - startPos.x;
+                    float deltaX = touch.position.x - startPos.x;
+                    float deltaY = touch.position.y - startPos.y;
 
-                    if (Mathf.Abs(delta) > 5f)
+                    if (deltaX > deltaY)
                     {
-                        if (delta > 0 && moveRight && count == 0)
+                        if (Mathf.Abs(deltaX) > 5f)
                         {
-                            transform.Rotate(Vector3.up, 90f);
-                            count++;
-                        }
+                            if (deltaX > 0 && moveRight && count == 0)
+                            {
+                                transform.Rotate(Vector3.up, 90f);
+                                count++;
+                            }
 
-                        if (delta < 0 && moveLeft && count == 0)
+                            if (deltaX < 0 && moveLeft && count == 0)
+                            {
+                                transform.Rotate(Vector3.up, -90f);
+                                count++;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (Mathf.Abs(deltaY) > 5f && isGrounded)
                         {
-                            transform.Rotate(Vector3.up, -90f);
-                            count++;
+                            if (deltaY > 0)
+                            {
+                                Jump();
+                            }
                         }
                     }
                     startPos = Vector3.zero;

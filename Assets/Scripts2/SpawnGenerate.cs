@@ -134,9 +134,9 @@ public class SpawnGenerate : MonoBehaviour
     }
 
 
-    public int CheckTrackCount()
+    public int CheckTimeToStartSpawn()
     {
-        return Roads.Count();
+        return (int)Time.time;
     }
 
 }

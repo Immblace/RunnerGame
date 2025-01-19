@@ -39,9 +39,5 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    public int getCurrentRecord()
-    {
-        return (int)Math.Round(PlayerPrefs.GetFloat("MyRecord"));
-    }
 
 }

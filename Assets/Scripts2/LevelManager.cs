@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,7 +9,6 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] private GameObject loseMenu;
     [SerializeField] private TextMeshProUGUI recordText;
-    private ScoreManager scoreManager;
 
     void Start()
     {
@@ -17,7 +17,6 @@ public class LevelManager : MonoBehaviour
         {
             loseMenu.SetActive(false);
         }
-        scoreManager = FindObjectOfType<ScoreManager>();
     }
 
     
@@ -25,7 +24,7 @@ public class LevelManager : MonoBehaviour
     public void onLoseMenu()
     {
         Time.timeScale = 0;
-        recordText.text = "Record: " + scoreManager.getCurrentRecord();
+        recordText.text = "Record: " + Math.Round(PlayerPrefs.GetFloat("MyRecord"));
         loseMenu.SetActive(true);
     }
 
