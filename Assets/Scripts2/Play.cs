@@ -193,36 +193,33 @@ public class Play : MonoBehaviour
                     startPos = touch.position;
                     break;
                 case TouchPhase.Ended:
-                    float deltaX = touch.position.x - startPos.x;
-                    float deltaY = touch.position.y - startPos.y;
+                    Vector3 delta = (Vector3)touch.position - startPos;
 
-                    if (deltaX > deltaY)
+                    if (delta.magnitude > 5f)
                     {
-                        if (Mathf.Abs(deltaX) > 5f)
+                        if (Math.Abs(delta.x) > Math.Abs(delta.y))
                         {
-                            if (deltaX > 0 && moveRight && count == 0)
+                            if (delta.x > 0 && moveRight && count == 0)
                             {
                                 transform.Rotate(Vector3.up, 90f);
                                 count++;
                             }
 
-                            if (deltaX < 0 && moveLeft && count == 0)
+                            if (delta.x < 0 && moveLeft && count == 0)
                             {
                                 transform.Rotate(Vector3.up, -90f);
                                 count++;
                             }
                         }
-                    }
-                    else
-                    {
-                        if (Mathf.Abs(deltaY) > 5f && isGrounded)
+                        else
                         {
-                            if (deltaY > 0)
+                            if (delta.y > 0 && isGrounded)
                             {
                                 Jump();
                             }
                         }
                     }
+                    
                     startPos = Vector3.zero;
                     break;
             }
