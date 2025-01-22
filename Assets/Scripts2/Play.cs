@@ -22,9 +22,9 @@ public class Play : MonoBehaviour
     private Rigidbody _rb;
 
 
-    
+
     private float timeToUpSpeed = 3f;
-    
+
 
     private void Start()
     {
@@ -37,6 +37,12 @@ public class Play : MonoBehaviour
 
     void Update()
     {
+        if (Input.acceleration.x > 0.1f)
+        {
+            transform.Translate(new Vector3(Input.acceleration.x, transform.position.y, transform.position.z) * 3f * Time.deltaTime);
+        }
+
+
 
         if (timeToUpSpeed > 0)
         {
@@ -193,33 +199,31 @@ public class Play : MonoBehaviour
                     startPos = touch.position;
                     break;
                 case TouchPhase.Ended:
-                    Vector3 delta = (Vector3)touch.position - startPos;
+                    float deltaX = touch.position.x - startPos.x;
+                    float deltaY = touch.position.y - startPos.y;
 
-                    if (delta.magnitude > 5f)
+
+                    if (Math.Abs(deltaX) > 5f)
                     {
-                        if (Math.Abs(delta.x) > Math.Abs(delta.y))
+                        if (deltaX > 0 && moveRight && count == 0)
                         {
-                            if (delta.x > 0 && moveRight && count == 0)
-                            {
-                                transform.Rotate(Vector3.up, 90f);
-                                count++;
-                            }
-
-                            if (delta.x < 0 && moveLeft && count == 0)
-                            {
-                                transform.Rotate(Vector3.up, -90f);
-                                count++;
-                            }
+                            transform.Rotate(Vector3.up, 90f);
+                            count++;
                         }
-                        else
+
+                        if (deltaX < 0 && moveLeft && count == 0)
                         {
-                            if (delta.y > 0 && isGrounded)
-                            {
-                                Jump();
-                            }
+                            transform.Rotate(Vector3.up, -90f);
+                            count++;
                         }
                     }
-                    
+
+                    if (Math.Abs(deltaY) > 3f && isGrounded)
+                    {
+                        Jump();
+                    }
+
+
                     startPos = Vector3.zero;
                     break;
             }
