@@ -19,7 +19,7 @@ public class Track : MonoBehaviour
     {
         spawnGenerate = FindObjectOfType<SpawnGenerate>();
 
-        if (spawnGenerate.CheckTimeToStartSpawn() > 2)
+        if (Time.time > 10)
         {
             if (Random.Range(0, 100) > 70)
             {
@@ -27,10 +27,7 @@ public class Track : MonoBehaviour
                 lookPos = enemyTarget[Random.Range(0, enemyTarget.Length)];
                 enemy.transform.LookAt(lookPos);
             }
-        }
 
-        if (spawnGenerate.CheckTimeToStartSpawn() > 4)
-        {
             if (Random.Range(0, 100) > 80)
             {
                 Instantiate(jumpBlock, BlockPos[Random.Range(0, BlockPos.Length)].position, transform.rotation);

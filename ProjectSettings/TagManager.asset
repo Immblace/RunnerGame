@@ -12,11 +12,12 @@ TagManager:
   - Ground
   - Bullet
   - Block
+  - Falling
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 

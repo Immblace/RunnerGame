@@ -10,17 +10,25 @@ public class Player : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private Transform cameraPos;
     [SerializeField] private Transform CameraLookPos;
+    [SerializeField] private Transform rayPosition;
+    [SerializeField] private LayerMask groundMask;
+    [SerializeField] private AudioSource runAudio;
+    [SerializeField] private AudioSource jumpAudio;
+    [SerializeField] private AudioSource landingAudio;
+    [SerializeField] private AudioSource fallingAudio;
     private LevelManager levelManager;
     private SpawnGenerate spawnGenerate;
     private ScoreManager scoreManager;
-    private bool moveRight;
-    private bool moveLeft;
-    private int count = 0;
-    private Vector3 touchStartPos;
-    private bool isGrounded;
     private Animator anim;
     private Rigidbody _rb;
+    private Vector3 touchStartPos;
+    private bool moveRight;
+    private bool moveLeft;
+    private bool isGrounded;
+    private int count = 0;
     private float timeToUpSpeed = 3f;
+    private float maxTilt = 1f;
+    private float rayRange = 0.44f;
 
 
     private void Start()
@@ -34,6 +42,21 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (CheckStayOnGround())
+        {
+            if (!isGrounded)
+            {
+                landingAudio.Play();
+                isGrounded = true;
+                anim.SetInteger("State", 0);
+                runAudio.Play();
+            }
+        }
+        else
+        {
+            runAudio.Pause();
+            isGrounded = false;
+        }
 
         if (timeToUpSpeed > 0)
         {
@@ -46,34 +69,18 @@ public class Player : MonoBehaviour
         }
 
         SwipeMove();
-        
 
 
-        if (moveRight && count == 0)
-        {
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                transform.Rotate(Vector3.up, 90f);
-                count++;
-            }
-        }
-
-        if (moveLeft && count == 0)
-        {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                transform.Rotate(Vector3.up, -90f);
-                count++;
-            }
-        }
-
-        if (transform.position.y < -20f)
+        if (transform.position.y < -15f)
         {
             scoreManager.CheckRecord();
             levelManager.onLoseMenu();
-            transform.position = new Vector3(0f, 0.4f, -25f);
-            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
+    }
+
+    private bool CheckStayOnGround()
+    {
+        return Physics.Raycast(rayPosition.position, Vector3.down, rayRange, groundMask);
     }
 
     private void FixedUpdate()
@@ -84,26 +91,12 @@ public class Player : MonoBehaviour
         cameraPos.LookAt(CameraLookPos);
     }
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-        {
-            isGrounded = false;
-        }
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Block")
         {
             scoreManager.CheckRecord();
             levelManager.onLoseMenu();
-        }
-
-        if (collision.gameObject.tag == "Ground")
-        {
-            isGrounded = true;
-            anim.SetInteger("State", 0);
         }
     }
 
@@ -117,6 +110,13 @@ public class Player : MonoBehaviour
         if (other.tag == "Left")
         {
             moveLeft = true;
+        }
+
+        if (other.tag == "Falling")
+        {
+            Camera.main.GetComponentInChildren<AudioSource>().Pause();
+            fallingAudio.Play();
+            anim.SetInteger("State", 2);
         }
 
         if (other.tag == "Bullet")
@@ -139,14 +139,16 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        _rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+        jumpAudio.Play();
+        _rb.velocity = new Vector3(0f, 5.5f, 0f);
         anim.SetInteger("State", 1);
     }
 
     private void Move()
     {
+        float moveSpeed = Mathf.Clamp(Input.acceleration.x, -maxTilt, maxTilt);
+        _rb.position += transform.right * 3f * moveSpeed * Time.fixedDeltaTime;
         _rb.position += transform.forward * speed * Time.fixedDeltaTime;
-
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
@@ -156,6 +158,24 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             _rb.position += transform.right * -3f * Time.fixedDeltaTime;
+        }
+
+        if (moveRight && count == 0)
+        {
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                transform.Rotate(Vector3.up, 90f);
+                count++;
+            }
+        }
+
+        if (moveLeft && count == 0)
+        {
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                transform.Rotate(Vector3.up, -90f);
+                count++;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
@@ -177,7 +197,7 @@ public class Player : MonoBehaviour
                     break;
                 case TouchPhase.Ended:
                     Vector3 delta = (Vector3)touch.position - touchStartPos;
-                    
+
                     if (delta.magnitude > 200f)
                     {
                         if (Math.Abs(delta.x) > Math.Abs(delta.y))
@@ -202,7 +222,6 @@ public class Player : MonoBehaviour
                             }
                         }
                     }
-
 
                     touchStartPos = Vector3.zero;
                     break;

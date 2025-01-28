@@ -10,8 +10,8 @@ public class SpawnGenerate : MonoBehaviour
     [SerializeField] private List<Transform> Turns = new List<Transform>(10);
     [SerializeField] private Transform[] Rotate = new Transform[2];
     [SerializeField] private Transform TrackPrefab;
-    [SerializeField] private float distance = 1.67f;
-    [SerializeField] private float dist;
+    private float distanceToTrack = 1.84f;
+    private float distanceToTurn = 0.1667f;
 
     private bool Generate = true;
     private int countRight = 0;
@@ -37,7 +37,7 @@ public class SpawnGenerate : MonoBehaviour
     private void TrackGenerate()
     {
         Transform newRotate = Instantiate(Rotate[Random.Range(0, Rotate.Length)]);
-        newRotate.position = Roads.Last().TransformPoint(Vector3.forward / distance);
+        newRotate.position = Roads.Last().TransformPoint(Vector3.forward / distanceToTrack);
         newRotate.rotation = Roads.Last().rotation;
         Turns.Add(newRotate);
 
@@ -55,7 +55,6 @@ public class SpawnGenerate : MonoBehaviour
                 generateLeft();
                 Generate = true;
                 countRight = 0;
-                return;
             }
         }
         else
@@ -71,14 +70,13 @@ public class SpawnGenerate : MonoBehaviour
                 generateRight();
                 Generate = true;
                 countLeft = 0;
-                return;
             }
         }
 
         if (Turns.Last().gameObject.tag == "Right")
         {
             Transform newTrack = Instantiate(TrackPrefab);
-            newTrack.position = Turns.Last().TransformPoint(Vector3.right / dist);
+            newTrack.position = Turns.Last().TransformPoint(Vector3.right / distanceToTurn);
             newTrack.rotation = Roads.Last().rotation;
             newTrack.Rotate(Vector3.up , 90);
             Roads.Add(newTrack);
@@ -86,7 +84,7 @@ public class SpawnGenerate : MonoBehaviour
         else
         {
             Transform newTrack = Instantiate(TrackPrefab);
-            newTrack.position = Turns.Last().TransformPoint(Vector3.left / dist);
+            newTrack.position = Turns.Last().TransformPoint(Vector3.left / distanceToTurn);
             newTrack.rotation = Roads.Last().rotation;
             newTrack.Rotate(Vector3.up , -90);
             Roads.Add(newTrack);
@@ -97,46 +95,27 @@ public class SpawnGenerate : MonoBehaviour
     {
         countRight++;
         Transform newRotate = Instantiate(Rotate[1]);
-        newRotate.position = Roads.Last().TransformPoint(Vector3.forward / distance);
+        newRotate.position = Roads.Last().TransformPoint(Vector3.forward / distanceToTrack);
         newRotate.rotation = Roads.Last().rotation;
         Turns.Add(newRotate);
-
-        Transform newTrack = Instantiate(TrackPrefab);
-        newTrack.position = Turns.Last().TransformPoint(Vector3.right / dist);
-        newTrack.rotation = Roads.Last().rotation;
-        newTrack.Rotate(Vector3.up, 90);
-        Roads.Add(newTrack);
     }
 
     private void generateLeft()
     {
         countLeft++;
         Transform newRotate = Instantiate(Rotate[0]);
-        newRotate.position = Roads.Last().TransformPoint(Vector3.forward / distance);
+        newRotate.position = Roads.Last().TransformPoint(Vector3.forward / distanceToTrack);
         newRotate.rotation = Roads.Last().rotation;
         Turns.Add(newRotate);
-
-        Transform newTrack = Instantiate(TrackPrefab);
-        newTrack.position = Turns.Last().TransformPoint(Vector3.left / dist);
-        newTrack.rotation = Roads.Last().rotation;
-        newTrack.Rotate(Vector3.up, -90);
-        Roads.Add(newTrack);
     }
-
-
 
     public void DeletObj()
     {
-        Destroy(Roads.First().transform.gameObject, 0.5f);
-        Destroy(Turns.First().transform.gameObject, 0.5f);
+        Destroy(Roads.First().transform.gameObject, 2f);
+        Destroy(Turns.First().transform.gameObject, 2f);
         Roads.Remove(Roads.First().transform);
         Turns.Remove(Turns.First().transform);
     }
 
-
-    public int CheckTimeToStartSpawn()
-    {
-        return (int)Time.time;
-    }
 
 }
