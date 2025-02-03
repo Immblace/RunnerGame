@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource jumpAudio;
     [SerializeField] private AudioSource landingAudio;
     [SerializeField] private AudioSource fallingAudio;
+    [SerializeField] private AudioSource collisionAudio;
+    [SerializeField] private AudioSource damageAudio;
     private LevelManager levelManager;
     private SpawnGenerate spawnGenerate;
     private ScoreManager scoreManager;
@@ -29,6 +31,7 @@ public class Player : MonoBehaviour
     private float timeToUpSpeed = 3f;
     private float maxTilt = 1f;
     private float rayRange = 0.44f;
+    private float moveSpeed;
 
 
     private void Start()
@@ -46,16 +49,19 @@ public class Player : MonoBehaviour
         {
             if (!isGrounded)
             {
-                landingAudio.Play();
                 isGrounded = true;
+                landingAudio.Play();
                 anim.SetInteger("State", 0);
                 runAudio.Play();
             }
         }
         else
         {
-            runAudio.Pause();
-            isGrounded = false;
+            if (isGrounded)
+            {
+                isGrounded = false;
+                runAudio.Pause();
+            }
         }
 
         if (timeToUpSpeed > 0)
@@ -70,6 +76,7 @@ public class Player : MonoBehaviour
 
         SwipeMove();
 
+        moveSpeed = Mathf.Clamp(Input.acceleration.x, -maxTilt, maxTilt);
 
         if (transform.position.y < -15f)
         {
@@ -95,6 +102,9 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "Block")
         {
+            Camera.main.GetComponentInChildren<AudioSource>().Pause();
+            runAudio.Pause();
+            collisionAudio.Play();
             scoreManager.CheckRecord();
             levelManager.onLoseMenu();
         }
@@ -121,6 +131,9 @@ public class Player : MonoBehaviour
 
         if (other.tag == "Bullet")
         {
+            Camera.main.GetComponentInChildren<AudioSource>().Pause();
+            runAudio.Pause();
+            damageAudio.Play();
             scoreManager.CheckRecord();
             levelManager.onLoseMenu();
         }
@@ -146,7 +159,6 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        float moveSpeed = Mathf.Clamp(Input.acceleration.x, -maxTilt, maxTilt);
         _rb.position += transform.right * 3f * moveSpeed * Time.fixedDeltaTime;
         _rb.position += transform.forward * speed * Time.fixedDeltaTime;
 

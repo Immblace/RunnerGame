@@ -19,16 +19,16 @@ public class Track : MonoBehaviour
     {
         spawnGenerate = FindObjectOfType<SpawnGenerate>();
 
-        if (Time.time > 10)
+        if (spawnGenerate.getCurrentSpawnTime() > 3)
         {
-            if (Random.Range(0, 100) > 70)
+            if (Random.Range(0, 100) > 55)
             {
                 enemy = Instantiate(enemyPrefab, enemyPosition.position, Quaternion.identity);
                 lookPos = enemyTarget[Random.Range(0, enemyTarget.Length)];
                 enemy.transform.LookAt(lookPos);
             }
 
-            if (Random.Range(0, 100) > 80)
+            if (Random.Range(0, 100) > 65)
             {
                 Instantiate(jumpBlock, BlockPos[Random.Range(0, BlockPos.Length)].position, transform.rotation);
             }
