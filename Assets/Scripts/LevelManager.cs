@@ -19,8 +19,6 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    
-
     public void onLoseMenu()
     {
         Time.timeScale = 0;

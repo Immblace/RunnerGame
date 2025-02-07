@@ -45,50 +45,19 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (CheckStayOnGround())
-        {
-            if (!isGrounded)
-            {
-                isGrounded = true;
-                landingAudio.Play();
-                anim.SetInteger("State", 0);
-                runAudio.Play();
-            }
-        }
-        else
-        {
-            if (isGrounded)
-            {
-                isGrounded = false;
-                runAudio.Pause();
-            }
-        }
-
-        if (timeToUpSpeed > 0)
-        {
-            timeToUpSpeed -= Time.deltaTime;
-        }
-        else
-        {
-            speed += 0.6f;
-            timeToUpSpeed = UnityEngine.Random.Range(5, 9);
-        }
-
+        CheckGround();
         SwipeMove();
+        PlayerSpeedUp();
 
         moveSpeed = Mathf.Clamp(Input.acceleration.x, -maxTilt, maxTilt);
 
-        if (transform.position.y < -15f)
+        if (transform.position.y < -17f)
         {
             scoreManager.CheckRecord();
             levelManager.onLoseMenu();
         }
     }
 
-    private bool CheckStayOnGround()
-    {
-        return Physics.Raycast(rayPosition.position, Vector3.down, rayRange, groundMask);
-    }
 
     private void FixedUpdate()
     {
@@ -147,6 +116,46 @@ public class Player : MonoBehaviour
             moveLeft = false;
             moveRight = false;
             count = 0;
+        }
+    }
+
+    private void CheckGround()
+    {
+        if (CheckStayOnGround())
+        {
+            if (!isGrounded)
+            {
+                isGrounded = true;
+                landingAudio.Play();
+                anim.SetInteger("State", 0);
+                runAudio.Play();
+            }
+        }
+        else
+        {
+            if (isGrounded)
+            {
+                isGrounded = false;
+                runAudio.Pause();
+            }
+        }
+    }
+
+    private bool CheckStayOnGround()
+    {
+        return Physics.Raycast(rayPosition.position, Vector3.down, rayRange, groundMask);
+    }
+
+    private void PlayerSpeedUp()
+    {
+        if (timeToUpSpeed > 0)
+        {
+            timeToUpSpeed -= Time.deltaTime;
+        }
+        else
+        {
+            speed += 0.6f;
+            timeToUpSpeed = UnityEngine.Random.Range(5, 9);
         }
     }
 
