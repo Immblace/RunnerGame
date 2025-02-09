@@ -808,7 +808,7 @@ GameObject:
   - component: {fileID: 628557212}
   - component: {fileID: 628557211}
   m_Layer: 5
-  m_Name: Record
+  m_Name: Points
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -823,14 +823,14 @@ RectTransform:
   m_GameObject: {fileID: 628557209}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.89, y: 4.01, z: 1}
+  m_LocalScale: {x: 1.81, y: 1.89, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1148358450}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -227.2, y: -180}
+  m_AnchoredPosition: {x: -190.38, y: -180}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &628557211
@@ -853,7 +853,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Record:'
+  m_text: 'Points: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -3311,7 +3311,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myScore: {fileID: 1818035889}
-  myRecord: {fileID: 628557211}
+  myRecord: {fileID: 0}
+  myPoints: {fileID: 628557211}
 --- !u!4 &1690982157
 Transform:
   m_ObjectHideFlags: 0
@@ -3354,14 +3355,14 @@ RectTransform:
   m_GameObject: {fileID: 1818035887}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.89, y: 4.01, z: 1}
+  m_LocalScale: {x: 1.81, y: 1.89, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1148358450}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 204.17, y: -171.7998}
+  m_AnchoredPosition: {x: 204.16998, y: -171.7998}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1818035889

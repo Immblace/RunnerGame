@@ -106,6 +106,11 @@ public class Player : MonoBehaviour
             scoreManager.CheckRecord();
             levelManager.onLoseMenu();
         }
+
+        if (other.tag == "Coin")
+        {
+            scoreManager.UpPoints();
+        }
     }
 
     private void OnTriggerExit(Collider other)

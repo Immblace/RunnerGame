@@ -9,18 +9,21 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI myScore;
     [SerializeField] private TextMeshProUGUI myRecord;
+    [SerializeField] private TextMeshProUGUI myPoints;
 
     private float score = 0;
+    private float points = 0;
 
 
     void Start()
     {
-        myRecord.text = "Record: " + Math.Round(PlayerPrefs.GetFloat("MyRecord"));
+        if (myRecord != null)
+        {
+            myRecord.text = "Record: " + Math.Round(PlayerPrefs.GetFloat("MyRecord"));
+        }
     }
 
-
-
-    void Update()
+    private void Update()
     {
         if (myScore != null)
         {
@@ -28,6 +31,14 @@ public class ScoreManager : MonoBehaviour
             myScore.text = "Score: " + Math.Round(score);
         }
     }
+
+
+    public void UpPoints()
+    {
+        points++;
+        myPoints.text = "Points: " + points.ToString();
+    }
+    
 
 
 
