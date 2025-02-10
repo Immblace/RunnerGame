@@ -333,6 +333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myScore: {fileID: 0}
   myRecord: {fileID: 962677315}
+  myPoints: {fileID: 0}
 --- !u!4 &225138033
 Transform:
   m_ObjectHideFlags: 0

@@ -32,16 +32,12 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-
     public void UpPoints()
     {
         points++;
         myPoints.text = "Points: " + points.ToString();
     }
     
-
-
-
     public void CheckRecord()
     {
         if (score > PlayerPrefs.GetFloat("MyRecord"))
