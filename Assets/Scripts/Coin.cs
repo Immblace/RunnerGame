@@ -6,12 +6,12 @@ public class Coin : MonoBehaviour
 {
 
     private AudioSource audioSource;
-    private Animator animation;
+    private Animator anim;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        animation = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
     }
 
     public void DeleteCoin()
@@ -24,7 +24,7 @@ public class Coin : MonoBehaviour
         if (other.tag == "Player")
         {
             audioSource.Play();
-            animation.SetTrigger("CoinGet");
+            anim.SetTrigger("CoinGet");
         }
     }
 

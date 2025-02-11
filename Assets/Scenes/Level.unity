@@ -1052,7 +1052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Roads:
-  - {fileID: 941793024}
+  - {fileID: 3636182157313794891}
   Turns: []
   Rotate:
   - {fileID: 8111646724395900611, guid: 4528a80e178640248b1da82afabaae0f, type: 3}
@@ -2017,11 +2017,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899599581}
   m_CullTransparentMesh: 1
---- !u!4 &941793024 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4541763111439219722, guid: fae3f034e9a39df43a72d8ac9c89551b, type: 3}
-  m_PrefabInstance: {fileID: 968772087470874433}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &944791064
 GameObject:
   m_ObjectHideFlags: 0
@@ -3920,11 +3915,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7755989176077670063, guid: fae3f034e9a39df43a72d8ac9c89551b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fae3f034e9a39df43a72d8ac9c89551b, type: 3}
+--- !u!4 &3636182157313794891 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4541763111439219722, guid: fae3f034e9a39df43a72d8ac9c89551b, type: 3}
+  m_PrefabInstance: {fileID: 968772087470874433}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

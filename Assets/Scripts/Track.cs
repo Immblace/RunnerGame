@@ -13,7 +13,6 @@ public class Track : MonoBehaviour
     [SerializeField] private Transform[] BlockPos = new Transform[2];
     [SerializeField] private Transform blockPrefab;
 
-    private SpawnGenerate spawnGenerate;
     private Enemy enemy;
     private GameObject jumpBlock;
     private Transform lookPos;
@@ -22,9 +21,7 @@ public class Track : MonoBehaviour
 
     private void Start()
     {
-        spawnGenerate = FindObjectOfType<SpawnGenerate>();
-
-        if (spawnGenerate.getCurrentSpawnTime() >= 3)
+        if (Random.Range (0,2) > 0)
         {
             if (Random.Range(0, 100) > 55)
             {

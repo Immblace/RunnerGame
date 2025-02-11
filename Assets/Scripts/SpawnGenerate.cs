@@ -16,13 +16,10 @@ public class SpawnGenerate : MonoBehaviour
     private bool Generate = true;
     private int countRight = 0;
     private int countLeft = 0;
-    private float spawnTime;
 
 
     private void Start()
     {
-        spawnTime = 0f;
-
         for (int i = 0; i < 9; i++)
         {
             TrackGenerate();
@@ -36,12 +33,6 @@ public class SpawnGenerate : MonoBehaviour
             TrackGenerate();
         }
 
-        spawnTime += Time.deltaTime;
-    }
-
-    public float getCurrentSpawnTime()
-    {
-        return spawnTime;
     }
 
     private void TrackGenerate()
