@@ -172,7 +172,7 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        _rb.position += transform.right * 3f * moveSpeed * Time.fixedDeltaTime;
+        _rb.position += transform.right * 6f * moveSpeed * Time.fixedDeltaTime;
         _rb.position += transform.forward * speed * Time.fixedDeltaTime;
 
         if (Input.GetKey(KeyCode.RightArrow))
