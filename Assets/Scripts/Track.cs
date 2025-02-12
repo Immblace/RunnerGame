@@ -7,7 +7,7 @@ public class Track : MonoBehaviour
     [SerializeField] private Enemy enemyPrefab;
     [SerializeField] private Transform enemyPosition;
     [SerializeField] private Transform coinPrefab;
-    [SerializeField] private Transform[] coinPosition = new Transform[9];
+    [SerializeField] private Transform[] coinPosition = new Transform[15];
     [SerializeField] private List<Transform> coinBags = new List<Transform>(3);
     [SerializeField] private Transform[] enemyTarget = new Transform[3];
     [SerializeField] private Transform[] BlockPos = new Transform[2];
@@ -21,16 +21,16 @@ public class Track : MonoBehaviour
 
     private void Start()
     {
-        if (Random.Range (0,2) > 0)
+        if (Random.Range (0,100) > 30)
         {
-            if (Random.Range(0, 100) > 55)
+            if (Random.Range(0, 100) > 50)
             {
                 enemy = Instantiate(enemyPrefab, enemyPosition.position, Quaternion.identity);
                 lookPos = enemyTarget[Random.Range(0, enemyTarget.Length)];
                 enemy.transform.LookAt(lookPos);
             }
 
-            if (Random.Range(0, 100) > 65)
+            if (Random.Range(0, 100) > 45)
             {
                 jumpBlock = Instantiate(blockPrefab.gameObject, BlockPos[Random.Range(0, BlockPos.Length)].position, transform.rotation);
             }
@@ -43,21 +43,21 @@ public class Track : MonoBehaviour
                 switch (newCoinPosition)
                 {
                     case 1:
-                        for (int i = 0; i < 3; i++)
+                        for (int i = 0; i < 5; i++)
                         {
                             Transform newCoin = Instantiate(coinPrefab, coinPosition[i].position, Quaternion.identity);
                             coinBags.Add(newCoin);
                         }
                         break;
                     case 2:
-                        for (int i = 3; i < 6; i++)
+                        for (int i = 5; i < 10; i++)
                         {
                             Transform newCoin = Instantiate(coinPrefab, coinPosition[i].position, Quaternion.identity);
                             coinBags.Add(newCoin);
                         }
                         break;
                     case 3:
-                        for (int i = 6; i < 9; i++)
+                        for (int i = 10; i < 15; i++)
                         {
                             Transform newCoin = Instantiate(coinPrefab, coinPosition[i].position, Quaternion.identity);
                             coinBags.Add(newCoin);
