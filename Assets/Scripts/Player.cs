@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     private ScoreManager scoreManager;
     private Animator anim;
     private Rigidbody _rb;
+    private Turns turns;
     private Vector3 touchStartPos;
     private bool moveRight;
     private bool moveLeft;
@@ -82,11 +83,13 @@ public class Player : MonoBehaviour
     {
         if (other.tag == "Right")
         {
+            turns = other.GetComponent<Turns>();
             moveRight = true;
         }
 
         if (other.tag == "Left")
         {
+            turns = other.GetComponent<Turns>();
             moveLeft = true;
         }
 
@@ -189,6 +192,7 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.D))
             {
+                turns.DestroyTurnWall();
                 transform.Rotate(Vector3.up, 90f);
                 count++;
             }
@@ -198,6 +202,7 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
+                turns.DestroyTurnWall();
                 transform.Rotate(Vector3.up, -90f);
                 count++;
             }
@@ -229,12 +234,14 @@ public class Player : MonoBehaviour
                         {
                             if (delta.x > 0 && moveRight && count == 0)
                             {
+                                turns.DestroyTurnWall();
                                 transform.Rotate(Vector3.up, 90f);
                                 count++;
                             }
 
                             if (delta.x < 0 && moveLeft && count == 0)
                             {
+                                turns.DestroyTurnWall();
                                 transform.Rotate(Vector3.up, -90f);
                                 count++;
                             }
