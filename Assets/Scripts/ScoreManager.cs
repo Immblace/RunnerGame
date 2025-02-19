@@ -11,15 +11,25 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI myRecord;
     [SerializeField] private TextMeshProUGUI myPoints;
 
+    [SerializeField] private GameObject loseMenu;
+    [SerializeField] private TextMeshProUGUI recordText;
+
     private float score = 0;
     private float points = 0;
 
 
     void Start()
     {
+        Time.timeScale = 1;
+
         if (myRecord != null)
         {
             myRecord.text = "Record: " + Math.Round(PlayerPrefs.GetFloat("MyRecord"));
+        }
+
+        if (loseMenu != null)
+        {
+            loseMenu.SetActive(false);
         }
     }
 
@@ -30,6 +40,13 @@ public class ScoreManager : MonoBehaviour
             score += Time.deltaTime;
             myScore.text = "Score: " + Math.Round(score);
         }
+    }
+
+    public void onLoseMenu()
+    {
+        Time.timeScale = 0;
+        recordText.text = "Record: " + Math.Round(PlayerPrefs.GetFloat("MyRecord"));
+        loseMenu.SetActive(true);
     }
 
     public void UpPoints()
@@ -45,6 +62,7 @@ public class ScoreManager : MonoBehaviour
             PlayerPrefs.SetFloat("MyRecord", score);
         }
     }
+
 
 
 }

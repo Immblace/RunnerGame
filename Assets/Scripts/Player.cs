@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
         if (transform.position.y < -17f)
         {
             scoreManager.CheckRecord();
-            levelManager.onLoseMenu();
+            scoreManager.onLoseMenu();
         }
     }
 
@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
             runAudio.Pause();
             collisionAudio.Play();
             scoreManager.CheckRecord();
-            levelManager.onLoseMenu();
+            scoreManager.onLoseMenu();
         }
     }
 
@@ -106,7 +106,7 @@ public class Player : MonoBehaviour
             runAudio.Pause();
             damageAudio.Play();
             scoreManager.CheckRecord();
-            levelManager.onLoseMenu();
+            scoreManager.onLoseMenu();
         }
 
         if (other.tag == "Coin")
