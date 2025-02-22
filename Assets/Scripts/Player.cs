@@ -18,7 +18,6 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource fallingAudio;
     [SerializeField] private AudioSource collisionAudio;
     [SerializeField] private AudioSource damageAudio;
-    private LevelManager levelManager;
     private SpawnGenerate spawnGenerate;
     private ScoreManager scoreManager;
     private Animator anim;
@@ -37,9 +36,8 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        spawnGenerate = FindObjectOfType<SpawnGenerate>();
-        levelManager = FindObjectOfType<LevelManager>();
-        scoreManager = FindObjectOfType<ScoreManager>();
+        spawnGenerate = FindFirstObjectByType<SpawnGenerate>();
+        scoreManager = FindFirstObjectByType<ScoreManager>();
         anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
     }
@@ -97,7 +95,7 @@ public class Player : MonoBehaviour
         {
             Camera.main.GetComponentInChildren<AudioSource>().Pause();
             fallingAudio.Play();
-            anim.SetInteger("State", 2);
+            anim.SetInteger("State", (int)States.falling);
         }
 
         if (other.tag == "Bullet")
@@ -134,7 +132,7 @@ public class Player : MonoBehaviour
             {
                 isGrounded = true;
                 landingAudio.Play();
-                anim.SetInteger("State", 0);
+                anim.SetInteger("State", (int)States.run);
                 runAudio.Play();
             }
         }
@@ -169,8 +167,8 @@ public class Player : MonoBehaviour
     private void Jump()
     {
         jumpAudio.Play();
-        _rb.velocity = new Vector3(0f, 5.5f, 0f);
-        anim.SetInteger("State", 1);
+        _rb.linearVelocity = new Vector3(0f, 5.5f, 0f);
+        anim.SetInteger("State", (int)States.jump);
     }
 
     private void Move()
@@ -259,6 +257,13 @@ public class Player : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private enum States
+    {
+        run,
+        jump,
+        falling
     }
 
 }
