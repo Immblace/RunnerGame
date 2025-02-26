@@ -8,11 +8,11 @@ public class Track : MonoBehaviour
     [SerializeField] private Transform enemyPosition;
     [SerializeField] private Transform coinPrefab;
     [SerializeField] private Transform[] coinPosition = new Transform[15];
-    [SerializeField] private List<Transform> coinBags = new List<Transform>(3);
     [SerializeField] private Transform[] enemyTarget = new Transform[3];
     [SerializeField] private Transform[] BlockPos = new Transform[2];
     [SerializeField] private Transform blockPrefab;
 
+    private List<Transform> coinBags = new List<Transform>(3);
     private Enemy enemy;
     private GameObject jumpBlock;
     private Transform lookPos;
