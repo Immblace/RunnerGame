@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     private float timeToUpSpeed = 3f;
     private float maxTilt = 1f;
     private float rayRange = 0.44f;
-    private float moveSpeed;
+    private float tiltSpeed;
 
 
     private void Start()
@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
         SwipeMove();
         PlayerSpeedUp();
 
-        moveSpeed = Mathf.Clamp(Input.acceleration.x, -maxTilt, maxTilt);
+        tiltSpeed = Mathf.Clamp(Input.acceleration.x, -maxTilt, maxTilt);
 
         if (transform.position.y < -17f)
         {
@@ -173,7 +173,7 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        _rb.position += transform.right * 6f * moveSpeed * Time.fixedDeltaTime;
+        _rb.position += transform.right * 6f * tiltSpeed * Time.fixedDeltaTime;
         _rb.position += transform.forward * speed * Time.fixedDeltaTime;
 
         if (Input.GetKey(KeyCode.RightArrow))
