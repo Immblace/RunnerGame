@@ -27,7 +27,6 @@ public class Player : MonoBehaviour
     private bool moveRight;
     private bool moveLeft;
     private bool isGrounded;
-    private int count = 0;
     private float timeToUpSpeed = 3f;
     private float maxTilt = 1f;
     private float rayRange = 0.44f;
@@ -118,9 +117,6 @@ public class Player : MonoBehaviour
         if (other.tag == "Right" || other.tag == "Left")
         {
             spawnGenerate.DeletObj();
-            moveLeft = false;
-            moveRight = false;
-            count = 0;
         }
     }
 
@@ -186,23 +182,23 @@ public class Player : MonoBehaviour
             _rb.position += transform.right * -3f * Time.fixedDeltaTime;
         }
 
-        if (moveRight && count == 0)
+        if (moveRight)
         {
             if (Input.GetKeyDown(KeyCode.D))
             {
+                moveRight = false;
                 turns.DestroyTurnWall();
                 transform.Rotate(Vector3.up, 90f);
-                count++;
             }
         }
 
-        if (moveLeft && count == 0)
+        if (moveLeft)
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
+                moveLeft = false;
                 turns.DestroyTurnWall();
                 transform.Rotate(Vector3.up, -90f);
-                count++;
             }
         }
 
@@ -230,18 +226,18 @@ public class Player : MonoBehaviour
                     {
                         if (Math.Abs(delta.x) > Math.Abs(delta.y))
                         {
-                            if (delta.x > 0 && moveRight && count == 0)
+                            if (delta.x > 0 && moveRight)
                             {
+                                moveRight = false;
                                 turns.DestroyTurnWall();
                                 transform.Rotate(Vector3.up, 90f);
-                                count++;
                             }
 
-                            if (delta.x < 0 && moveLeft && count == 0)
+                            if (delta.x < 0 && moveLeft)
                             {
+                                moveLeft = false;
                                 turns.DestroyTurnWall();
                                 transform.Rotate(Vector3.up, -90f);
-                                count++;
                             }
                         }
                         else
