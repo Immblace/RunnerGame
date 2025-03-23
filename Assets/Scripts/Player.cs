@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -28,9 +30,10 @@ public class Player : MonoBehaviour
     private bool moveLeft;
     private bool isGrounded;
     private float timeToUpSpeed = 3f;
-    private float maxTilt = 1f;
     private float rayRange = 0.44f;
-    private float tiltSpeed;
+    private int PlayerOffset;
+    //private float maxTilt = 1f;
+    //private float tiltSpeed;
 
 
     private void Start()
@@ -47,13 +50,13 @@ public class Player : MonoBehaviour
         SwipeMove();
         PlayerSpeedUp();
 
-        tiltSpeed = Mathf.Clamp(Input.acceleration.x, -maxTilt, maxTilt);
-
         if (transform.position.y < -17f)
         {
             scoreManager.CheckRecord();
             scoreManager.onLoseMenu();
         }
+
+        //tiltSpeed = Mathf.Clamp(Input.acceleration.x, -maxTilt, maxTilt);
     }
 
     private void FixedUpdate()
@@ -169,7 +172,8 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        _rb.position += transform.right * 6f * tiltSpeed * Time.fixedDeltaTime;
+        //_rb.position += transform.right * 6f * tiltSpeed * Time.fixedDeltaTime;
+        _rb.position += transform.right * 2.5f * PlayerOffset * Time.fixedDeltaTime;
         _rb.position += transform.forward * speed * Time.fixedDeltaTime;
 
         if (Input.GetKey(KeyCode.RightArrow))
@@ -253,6 +257,21 @@ public class Player : MonoBehaviour
                     break;
             }
         }
+    }
+
+    public void PlayerOffsetRight()
+    {
+        PlayerOffset = 1;
+    }
+
+    public void PlayerOffsetLeft()
+    {
+        PlayerOffset = -1;
+    }
+
+    public void PlayerBtnUp()
+    {
+        PlayerOffset = 0;
     }
 
     private enum States

@@ -118,5 +118,17 @@ public class SpawnGenerate : MonoBehaviour
         Turns.Remove(Turns.First().transform);
     }
 
+    public string TurnsInfo()
+    {
+        if (Turns.First().gameObject.tag == "Right")
+        {
+            return "Right";
+        }
+        else
+        {
+            return "Left";
+        }
+    }
+
 
 }
