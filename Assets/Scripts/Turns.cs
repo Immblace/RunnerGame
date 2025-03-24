@@ -5,6 +5,7 @@ using UnityEngine;
 public class Turns : MonoBehaviour
 {
     [SerializeField] private GameObject turnsWall;
+    [SerializeField] private Transform PlayerPos;
 
 
 
@@ -13,5 +14,10 @@ public class Turns : MonoBehaviour
     public void DestroyTurnWall()
     {
         Destroy(turnsWall.gameObject);
+    }
+
+    public Transform GetPlayerPos()
+    {
+        return PlayerPos;
     }
 }

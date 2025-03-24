@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 155538922}
   - component: {fileID: 155538921}
   m_Layer: 5
-  m_Name: ExitButton
+  m_Name: ExitBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -564,8 +564,8 @@ RectTransform:
   m_Children:
   - {fileID: 1834146640}
   - {fileID: 155538920}
-  - {fileID: 962677317}
   - {fileID: 1935754474}
+  - {fileID: 962677317}
   m_Father: {fileID: 2055101135}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2070,7 +2070,7 @@ GameObject:
   - component: {fileID: 1834146642}
   - component: {fileID: 1834146641}
   m_Layer: 5
-  m_Name: PlayButton
+  m_Name: PlayBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2334,7 +2334,7 @@ GameObject:
   - component: {fileID: 1935754476}
   - component: {fileID: 1935754475}
   m_Layer: 5
-  m_Name: DeleteRecord
+  m_Name: DeleteRecordBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

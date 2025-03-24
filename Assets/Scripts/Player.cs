@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource fallingAudio;
     [SerializeField] private AudioSource collisionAudio;
     [SerializeField] private AudioSource damageAudio;
+    [SerializeField] private Button TurnButton;
     private SpawnGenerate spawnGenerate;
     private ScoreManager scoreManager;
     private Animator anim;
@@ -85,12 +86,14 @@ public class Player : MonoBehaviour
         {
             turns = other.GetComponent<Turns>();
             moveRight = true;
+            TurnButton.interactable = true;
         }
 
         if (other.tag == "Left")
         {
             turns = other.GetComponent<Turns>();
             moveLeft = true;
+            TurnButton.interactable = true;
         }
 
         if (other.tag == "Falling")
@@ -159,7 +162,7 @@ public class Player : MonoBehaviour
         else
         {
             speed += 0.6f;
-            timeToUpSpeed = UnityEngine.Random.Range(5, 9);
+            timeToUpSpeed = UnityEngine.Random.Range(3, 6);
         }
     }
 
@@ -272,6 +275,26 @@ public class Player : MonoBehaviour
     public void PlayerBtnUp()
     {
         PlayerOffset = 0;
+    }
+
+    public void TurnPlayer()
+    {
+        if (turns.gameObject.tag == "Right" && moveRight)
+        {
+            TurnButton.interactable = false;
+            moveRight = false;
+            turns.DestroyTurnWall();
+            transform.position = new Vector3(turns.GetPlayerPos().position.x, transform.position.y, turns.GetPlayerPos().position.z);
+            transform.Rotate(Vector3.up, 90f);
+        }
+        else if (turns.gameObject.tag == "Left" && moveLeft)
+        {
+            TurnButton.interactable = false;
+            moveLeft = false;
+            turns.DestroyTurnWall();
+            transform.position = new Vector3(turns.GetPlayerPos().position.x, transform.position.y, turns.GetPlayerPos().position.z);
+            transform.Rotate(Vector3.up, -90f);
+        }
     }
 
     private enum States
